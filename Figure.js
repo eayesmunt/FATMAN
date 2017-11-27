@@ -53,6 +53,8 @@ stickPushRight.src = './stick-pushing-right.png';
 var stickPushLeft = new Image();
 stickPushLeft.src = './stick-pushing-left.png';
 
+
+// WILL CHANGE IMAGES TO APPEAR LIKE RUNNING
 var walkCyclesRight = [
     stickWalkingRight0,
     stickWalkingRight1,
@@ -68,15 +70,6 @@ var walkCyclesLeft = [
     stickWalkingLeft3,
     stickWalkingLeft4
 ];
-
-
-var updateKeysDown = function (e) {
-    keysDown[e.keyCode] = true;
-};
-
-var updateKeysUp = function (e) {
-    keysDown[e.keyCode] = false;
-};
 
 /////////////// FIGURE LOGIC ///////////////
 var figure = function () {

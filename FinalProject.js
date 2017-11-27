@@ -23,35 +23,12 @@ var floor = {
 }
 
 var shelves = [new createShelf(), new createShelf(), new createShelf(), new createShelf(), new createShelf(), new createShelf()];
-var iceMonsters = [new iceMonster(), new iceMonster(), new iceMonster()];
-var snowBalls = [new snowBall(), new snowBall(), new snowBall()];
-
-var loadSnowBallsIntoMonsters = function () {
-    var i = 0;
-    iceMonsters.forEach((m) => {
-        m.snowBall = snowBalls[i]
-        i++;
-    });
-};
 
 var updateAndDrawShelves = function () {
     shelves.forEach((s) => {
         s.update();
         s.draw(canvas);
     })
-};
-
-var updateAndDrawMonsters = function () {
-    iceMonsters.forEach((m) => {
-        m.update();
-        m.draw(canvas);
-    });
-};
-
-var updateAndDrawSnowBalls = function () {
-    snowBalls.forEach((b) => {
-        b.updateAndDraw(canvas);
-    });
 };
 
 var checkShelves = function () {
@@ -89,6 +66,14 @@ var startGame = function () {
     }
 };
 
+var updateKeysDown = function (e) {
+    keysDown[e.keyCode] = true;
+};
+
+var updateKeysUp = function (e) {
+    keysDown[e.keyCode] = false;
+};
+
 var init = function () {
     // Setup key listeners
     document.onkeydown = updateKeysDown;
@@ -104,8 +89,6 @@ var init = function () {
     canvas.fillStyle = '#020233';
     canvas.fillRect(floor.x, floor.y, floor.width, floor.height);
 
-    loadSnowBallsIntoMonsters();
-
     figure.start();
     startGame();
 };
@@ -114,14 +97,11 @@ var update = function () {
     figure.checkKeys();
     checkKeys();
     checkPhysics();
-    //checkFigureActions();
     checkShelves();
     canvas.clearRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
     canvas.fillStyle = '#020233';
     canvas.fillRect(floor.x, floor.y, floor.width, floor.height);
     updateAndDrawShelves();
-    updateAndDrawMonsters();
-    updateAndDrawSnowBalls();
     canvas = figure.drawFigure(canvas);
 };
 
@@ -166,17 +146,6 @@ var checkPhysics = function () {
         figure.jumpStrength = 0;
     }
 
-    iceMonsters.forEach((m) => {
-        if (m.y + m.h >= floor.y) {
-            m.y = floor.y - m.h;
-            m.dy = 0;
-        }
-        else if (!collisionDetect(m)) {
-            m.dy += GRAVITY;
-            m.y += m.dy;
-        }
-    });
-
     figureCollidedWithShelf = collisionDetect(figure);
 
     // CHECK FLOOR COLLISION
@@ -190,17 +159,4 @@ var checkPhysics = function () {
         figure.y += figure.dy;
     }
 
-};
-
-// Make ice monsters move away from player when power stomp performed
-var powerStomp = function () {
-    iceMonsters.forEach((m) => {
-        var diff1 = m.y - figure.y;
-        var diff2 = figure.y - m.y;
-        if (diff1 < 30 && diff1 >= 0) {
-            figure.oriented === RIGHT ? m.dx += .5 : m.dx -= .5;
-        } else if (diff2 < 30) {
-            figure.oriented === RIGHT ? m.dx += .5 : m.dx -= .5;
-        }
-    });
 };

@@ -25,3 +25,33 @@ var createShelf = function () {
 
     return tShelf;
 };
+
+///// WILL USE VERSION BELOW WITH ELIAS'S MAP GENERATOR
+
+// var createShelf = function (x, y, w, h, color) {
+//     var tShelf = {};
+//     tShelf.height = h;
+//     tShelf.width = w;
+//     tShelf.x = x;
+//     tShelf.y = y;
+//     tShelf.color = color;
+
+//     tShelf.reset = function (x, y, w, h, imgSrc) {
+//         tShelf.height = h;
+//         tShelf.width = w;
+//         tShelf.x = x;
+//         tShelf.y = y;
+//         tShelf.v = color;
+//     };
+
+//     tShelf.update = function () {
+//         this.x += dx;
+//     }
+
+//     tShelf.draw = function (canvas) {
+//         canvas.fillStyle = color;
+//         canvas.fillRect(this.x, this.y, this.width, this.height);
+//     }
+
+//     return tShelf;
+// };
