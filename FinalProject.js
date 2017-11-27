@@ -49,9 +49,9 @@ var initializeKeys = function () {
 
 var checkKeys = function () {
     if (keysDown[K_LEFT]) {
-        dx = 10;
+        dx = 7;
     } else if (keysDown[K_RIGHT]) {
-        dx = -10
+        dx = -7
     } else {
         dx = 0;
         ddx = 0;

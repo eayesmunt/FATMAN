@@ -130,7 +130,7 @@ var figure = function () {
         },
 
         start: function () {
-            figureLoop = setInterval(figure.update, 50);
+            figureLoop = setInterval(figure.update, 80);
             GameOver ? clearInterval(figureLoop) : null;
         },
 
