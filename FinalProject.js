@@ -3,9 +3,15 @@
 
 var SCREEN_WIDTH = window.innerWidth - 1;
 var SCREEN_HEIGHT = window.innerHeight - 1;
+var BLOCK_WIDTH = 750;
 var GRAVITY = 2;
 var GameOver = false;
 var Time = new Date();
+
+// dummy map
+var map = {
+    startBlock: null
+};
 
 // motion of objects around character
 var ddx = 0;
@@ -13,6 +19,14 @@ var dx = 0;
 
 var theCanvas;
 var canvas;
+
+// The figure's position in map. Needs an x y pair.
+var figureBlock = {};
+// The figure's position on block. 0 < x < 750
+var figurePosition;
+
+// View point of user/player
+var viewDirection;
 
 var figure = new figure();
 var floor = {
@@ -23,6 +37,37 @@ var floor = {
 }
 
 var shelves = [new createShelf(), new createShelf(), new createShelf(), new createShelf(), new createShelf(), new createShelf()];
+
+
+var drawBackGround = function () {
+    if (figureDirection === 'E' || figureDirection === 'W') {
+        if (viewDirection === "N") {
+            drawBuilding(map[figureBlock.x - 1].northBId, figurePosition - BLOCK_WIDTH);
+            drawBuilding(map[figureBlock.x].northBId, figurePosition);
+            drawBuilding(map[figureBlock.x + 1].northBId, figurePosition + BLOCK_WIDTH);
+        }
+        else {
+            drawBuilding(map[figureBlock.x + 1].southBId, figurePosition - BLOCK_WIDTH);
+            drawBuilding(map[figureBlock.x].southBId, figurePosition);
+            drawBuilding(map[figureBlock.x - 1].southBId, figurePosition + BLOCK_WIDTH);
+        }
+    } else {
+        if (viewDirection === "E") {
+            drawBuilding(map[figureBlock.y - 1].eastBId, figurePosition - BLOCK_WIDTH);
+            drawBuilding(map[figureBlock.y].eastBId, figurePosition);
+            drawBuilding(map[figureBlock.y + 1].eastBId, figurePosition + BLOCK_WIDTH);
+        }
+        else {
+            drawBuilding(map[figureBlock.y + 1].westBId, figurePosition - BLOCK_WIDTH);
+            drawBuilding(map[figureBlock.y].westBId, figurePosition);
+            drawBuilding(map[figureBlock.y - 1].westBId, figurePosition + BLOCK_WIDTH);
+        }
+    }
+};
+
+var drawBuilding = function (bId, x) {
+    canvas.drawImg(bId, x, 200, 600, 800);
+};
 
 var updateAndDrawShelves = function () {
     shelves.forEach((s) => {
@@ -47,11 +92,51 @@ var initializeKeys = function () {
     keysDown[K_DOWN] = false;
 };
 
+// FIGURE IS MOVING RIGHT
+var adjustFigurePositionLeft = function () {
+    if (figurePosition += -7 < 0) {
+        figurePosition = 750;
+        if (viewDirection === 'N') {
+            figureBlock.x--;
+        }
+        else if (viewDirection === 'E') {
+            figureBlock.y--;
+        }
+        else if (viewDirection === 'S') {
+            figureBlock.x++;
+        }
+        else if (viewDirection === 'W') {
+            figureBlock.y++;
+        }
+    }
+};
+
+// FIGURE IS MOVING LEFT
+var adjustFigurePositionRight = function () {
+    if (figurePosition += 7 > 750) {
+        figurePosition = 0;
+        if (viewDirection === 'N') {
+            figureBlock.x++;
+        }
+        else if (viewDirection === 'E') {
+            figureBlock.y++;
+        }
+        else if (viewDirection === 'S') {
+            figureBlock.x--;
+        }
+        else if (viewDirection === 'W') {
+            figureBlock.y--;
+        }
+    }
+};
+
 var checkKeys = function () {
     if (keysDown[K_LEFT]) {
         dx = 7;
+        adjustFigurePositionLeft();
     } else if (keysDown[K_RIGHT]) {
-        dx = -7
+        dx = -7;
+        adjustFigurePositionRight();
     } else {
         dx = 0;
         ddx = 0;
@@ -60,7 +145,7 @@ var checkKeys = function () {
 
 /////// MAIN LOOP /////////
 var startGame = function () {
-    var gameLoop = setInterval(update, 50);
+    var gameLoop = setInterval(update, 25);
     if (GameOver) {
         clearInterval(gameLoop);
     }
@@ -79,15 +164,22 @@ var init = function () {
     document.onkeydown = updateKeysDown;
     document.onkeyup = updateKeysUp;
 
+    // Set Size
     theCanvas = document.getElementById('background');
     theCanvas.width = SCREEN_WIDTH;
     theCanvas.height = SCREEN_HEIGHT;
 
+    // Draw Figure
     canvas = theCanvas.getContext('2d');
     canvas = figure.drawFigure(canvas);
 
+    // Draw Floor
     canvas.fillStyle = '#020233';
     canvas.fillRect(floor.x, floor.y, floor.width, floor.height);
+
+    // Set Figure Position
+    figureBlock = map.startBlock;
+    figurePosition = 500;
 
     figure.start();
     startGame();
