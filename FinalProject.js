@@ -7,6 +7,7 @@ var BLOCK_WIDTH = 750;
 var GRAVITY = 1.5;
 var GameOver = false;
 var Time = new Date();
+var DIRECTION_ENUM = ['N', 'E', 'S', 'W'];
 
 // dummy map
 var map = {
@@ -148,6 +149,22 @@ var checkKeys = function () {
     } else {
         dx = 0;
         ddx = 0;
+    }
+    if (keysDown[K_UP]) {
+        var checkMovePos;
+        for (var i = 0; i < 4; i++) {
+            if (viewDirection) {
+
+            }
+        }
+        viewDirection === 'N' ? checkMovePos = 0 : null;
+        viewDirection === 'E' ? checkMovePos = 1 : null;
+        viewDirection === 'S' ? checkMovePos = 2 : null;
+        viewDirection === 'W' ? checkMovePos = 3 : null;
+
+        if (map[figureBlock.x][figureBlock.y].possibleMoves[checkMovePos]) {
+            viewDirection = 
+        }
     }
 };
 

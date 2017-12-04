@@ -258,3 +258,4 @@ K_LEFT = 37;
 K_RIGHT = 39;
 K_SPACE = 32;
 K_DOWN = 40;
+K_UP = 38;
