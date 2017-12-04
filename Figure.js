@@ -74,34 +74,34 @@ stickPushLeft.src = './stick-pushing-left.png';
 // WILL CHANGE IMAGES TO APPEAR LIKE RUNNING
 var walkCyclesRight = [
     function () {
-        canvas.drawImage(stickRunningRight0, figure.x - 10, figure.y, 40, 60);
+        canvas.drawImage(stickRunningRight0, figure.x - 8, figure.y, 40, 60);
     },
     function () {
-        canvas.drawImage(stickRunningRight1, figure.x - 6, figure.y, 33, 60);
+        canvas.drawImage(stickRunningRight1, figure.x - 7, figure.y, 33, 60);
     },
     function () {
-        canvas.drawImage(stickRunningRight2, figure.x - 4, figure.y, 30, 60);
+        canvas.drawImage(stickRunningRight2, figure.x - 6, figure.y, 30, 60);
     },
     function () {
-        canvas.drawImage(stickRunningRight3, figure.x - 2, figure.y, 28, 60);
+        canvas.drawImage(stickRunningRight3, figure.x - 5, figure.y, 28, 60);
     },
     function () {
-        canvas.drawImage(stickRunningRight4, figure.x, figure.y, 27, 60);
+        canvas.drawImage(stickRunningRight4, figure.x - 4, figure.y, 27, 60);
     },
     function () {
-        canvas.drawImage(stickRunningRight5, figure.x - 2, figure.y, 32, 60);
+        canvas.drawImage(stickRunningRight5, figure.x - 5, figure.y, 32, 60);
     },
     function () {
-        canvas.drawImage(stickRunningRight6, figure.x - 4, figure.y, 38, 60);
+        canvas.drawImage(stickRunningRight6, figure.x - 6, figure.y, 38, 60);
     },
     function () {
-        canvas.drawImage(stickRunningRight7, figure.x - 6, figure.y, 40, 60);
+        canvas.drawImage(stickRunningRight7, figure.x - 7, figure.y, 40, 60);
     },
 ];
 
 var walkCyclesLeft = [
     function () {
-        canvas.drawImage(stickRunningLeft0, figure.x - 10, figure.y, 40, 60);
+        canvas.drawImage(stickRunningLeft0, figure.x - 8, figure.y, 40, 60);
     },
     function () {
         canvas.drawImage(stickRunningLeft1, figure.x - 6, figure.y, 33, 60);
@@ -233,8 +233,8 @@ var figure = function () {
                         : canvas.drawImage(stickCrouchLeft, figure.x - 20, figure.y + 28, 43, 30);
                     break;
                 case QUEUE_JUMP:
-                    figure.jumpStrength === 0 ? figure.jumpStrength = -15 : null;
-                    figure.jumpStrength > -35 ? figure.jumpStrength -= 1 : null;
+                    figure.jumpStrength === 0 ? figure.jumpStrength = -10 : null;
+                    figure.jumpStrength > -35 ? figure.jumpStrength -= 0.9 : null;
                     figure.oriented === RIGHT
                         ? canvas.drawImage(stickCrouchRight, figure.x, figure.y + 28, 43, 30)
                         : canvas.drawImage(stickCrouchLeft, figure.x - 20, figure.y + 28, 43, 30);

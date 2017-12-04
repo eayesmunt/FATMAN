@@ -4,7 +4,7 @@
 var SCREEN_WIDTH = window.innerWidth - 1;
 var SCREEN_HEIGHT = window.innerHeight - 1;
 var BLOCK_WIDTH = 750;
-var GRAVITY = 2;
+var GRAVITY = 1.5;
 var GameOver = false;
 var Time = new Date();
 
@@ -92,7 +92,7 @@ var initializeKeys = function () {
     keysDown[K_DOWN] = false;
 };
 
-// FIGURE IS MOVING RIGHT
+// FIGURE IS MOVING RIGHT -- FUNCTION USED TO GIVE BACKGROUND APPROPRIATE REFERENCE
 var adjustFigurePositionLeft = function () {
     if (figurePosition += -7 < 0) {
         figurePosition = 750;
@@ -111,7 +111,7 @@ var adjustFigurePositionLeft = function () {
     }
 };
 
-// FIGURE IS MOVING LEFT
+// FIGURE IS MOVING LEFT -- FUNCTION USED TO GIVE BACKGROUND APPROPRIATE REFERENCE
 var adjustFigurePositionRight = function () {
     if (figurePosition += 7 > 750) {
         figurePosition = 0;
@@ -132,10 +132,18 @@ var adjustFigurePositionRight = function () {
 
 var checkKeys = function () {
     if (keysDown[K_LEFT]) {
-        dx = 7;
+        if (figure.state === JUMP) {
+            dx = 12;
+        } else {
+            dx = 7;
+        }
         adjustFigurePositionLeft();
     } else if (keysDown[K_RIGHT]) {
-        dx = -7;
+        if (figure.state === JUMP) {
+            dx = -12;
+        } else {
+            dx = -7;
+        }
         adjustFigurePositionRight();
     } else {
         dx = 0;
