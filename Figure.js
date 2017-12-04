@@ -16,27 +16,39 @@ var LEFT = 1;
 
 var keysDown = [];
 
-var stickWalkingRight0 = new Image();
-stickWalkingRight0.src = "./cycles_right/stick-walking-right-0.png";
-var stickWalkingRight1 = new Image();
-stickWalkingRight1.src = "./cycles_right/stick-walking-right-1.png";
-var stickWalkingRight2 = new Image();
-stickWalkingRight2.src = "./cycles_right/stick-walking-right-2.png";
-var stickWalkingRight3 = new Image();
-stickWalkingRight3.src = "./cycles_right/stick-walking-right-3.png";
-var stickWalkingRight4 = new Image();
-stickWalkingRight4.src = "./cycles_right/stick-walking-right-4.png";
+var stickRunningRight0 = new Image();
+var stickRunningRight1 = new Image();
+var stickRunningRight2 = new Image();
+var stickRunningRight3 = new Image();
+var stickRunningRight4 = new Image();
+var stickRunningRight5 = new Image();
+var stickRunningRight6 = new Image();
+var stickRunningRight7 = new Image();
+stickRunningRight0.src = "./cycles_right/stick_running_right_0.png";
+stickRunningRight1.src = "./cycles_right/stick_running_right_1.png";
+stickRunningRight2.src = "./cycles_right/stick_running_right_2.png";
+stickRunningRight3.src = "./cycles_right/stick_running_right_3.png";
+stickRunningRight4.src = "./cycles_right/stick_running_right_4.png";
+stickRunningRight6.src = "./cycles_right/stick_running_right_6.png";
+stickRunningRight5.src = "./cycles_right/stick_running_right_5.png";
+stickRunningRight7.src = "./cycles_right/stick_running_right_7.png";
 
-var stickWalkingLeft0 = new Image();
-stickWalkingLeft0.src = "./cycles_left/stick-walking-left-0.png";
-var stickWalkingLeft1 = new Image();
-stickWalkingLeft1.src = "./cycles_left/stick-walking-left-1.png";
-var stickWalkingLeft2 = new Image();
-stickWalkingLeft2.src = "./cycles_left/stick-walking-left-2.png";
-var stickWalkingLeft3 = new Image();
-stickWalkingLeft3.src = "./cycles_left/stick-walking-left-3.png";
-var stickWalkingLeft4 = new Image();
-stickWalkingLeft4.src = "./cycles_left/stick-walking-left-4.png";
+var stickRunningLeft0 = new Image();
+var stickRunningLeft1 = new Image();
+var stickRunningLeft2 = new Image();
+var stickRunningLeft3 = new Image();
+var stickRunningLeft4 = new Image();
+var stickRunningLeft5 = new Image();
+var stickRunningLeft6 = new Image();
+var stickRunningLeft7 = new Image();
+stickRunningLeft0.src = "./cycles_left/stick_running_left_0.png";
+stickRunningLeft1.src = "./cycles_left/stick_running_left_1.png";
+stickRunningLeft2.src = "./cycles_left/stick_running_left_2.png";
+stickRunningLeft3.src = "./cycles_left/stick_running_left_3.png";
+stickRunningLeft4.src = "./cycles_left/stick_running_left_4.png";
+stickRunningLeft5.src = "./cycles_left/stick_running_left_5.png";
+stickRunningLeft6.src = "./cycles_left/stick_running_left_6.png";
+stickRunningLeft7.src = "./cycles_left/stick_running_left_7.png";
 
 var stickCrouchRight = new Image();
 stickCrouchRight.src = "./stick-squat-right.png";
@@ -48,6 +60,11 @@ stickJumpRight.src = "./stick-jumping-right.png";
 var stickJumpLeft = new Image();
 stickJumpLeft.src = "./stick-jumping-left.png";
 
+var stickStandRight = new Image();
+stickStandRight.src = "./stick-stand-right.png";
+var stickStandLeft = new Image();
+stickStandLeft.src = "./stick-stand-left.png";
+
 var stickPushRight = new Image();
 stickPushRight.src = './stick-pushing-right.png';
 var stickPushLeft = new Image();
@@ -56,19 +73,57 @@ stickPushLeft.src = './stick-pushing-left.png';
 
 // WILL CHANGE IMAGES TO APPEAR LIKE RUNNING
 var walkCyclesRight = [
-    stickWalkingRight0,
-    stickWalkingRight1,
-    stickWalkingRight2,
-    stickWalkingRight3,
-    stickWalkingRight4
+    function () {
+        canvas.drawImage(stickRunningRight0, figure.x - 8, figure.y, 40, 60);
+    },
+    function () {
+        canvas.drawImage(stickRunningRight1, figure.x - 7, figure.y, 33, 60);
+    },
+    function () {
+        canvas.drawImage(stickRunningRight2, figure.x - 6, figure.y, 30, 60);
+    },
+    function () {
+        canvas.drawImage(stickRunningRight3, figure.x - 5, figure.y, 28, 60);
+    },
+    function () {
+        canvas.drawImage(stickRunningRight4, figure.x - 4, figure.y, 27, 60);
+    },
+    function () {
+        canvas.drawImage(stickRunningRight5, figure.x - 5, figure.y, 32, 60);
+    },
+    function () {
+        canvas.drawImage(stickRunningRight6, figure.x - 6, figure.y, 38, 60);
+    },
+    function () {
+        canvas.drawImage(stickRunningRight7, figure.x - 7, figure.y, 40, 60);
+    },
 ];
 
 var walkCyclesLeft = [
-    stickWalkingLeft0,
-    stickWalkingLeft1,
-    stickWalkingLeft2,
-    stickWalkingLeft3,
-    stickWalkingLeft4
+    function () {
+        canvas.drawImage(stickRunningLeft0, figure.x - 8, figure.y, 40, 60);
+    },
+    function () {
+        canvas.drawImage(stickRunningLeft1, figure.x - 6, figure.y, 33, 60);
+    },
+    function () {
+        canvas.drawImage(stickRunningLeft2, figure.x - 4, figure.y, 30, 60);
+    },
+    function () {
+        canvas.drawImage(stickRunningLeft3, figure.x - 2, figure.y, 28, 60);
+    },
+    function () {
+        canvas.drawImage(stickRunningLeft4, figure.x, figure.y, 27, 60);
+    },
+    function () {
+        canvas.drawImage(stickRunningLeft5, figure.x - 2, figure.y, 32, 60);
+    },
+    function () {
+        canvas.drawImage(stickRunningLeft6, figure.x - 4, figure.y, 38, 60);
+    },
+    function () {
+        canvas.drawImage(stickRunningLeft7, figure.x - 6, figure.y, 40, 60);
+    },
 ];
 
 /////////////// FIGURE LOGIC ///////////////
@@ -130,14 +185,14 @@ var figure = function () {
         },
 
         start: function () {
-            figureLoop = setInterval(figure.update, 80);
+            figureLoop = setInterval(figure.update, 45);
             GameOver ? clearInterval(figureLoop) : null;
         },
 
         update: function () {
             // Cycle Walk
             if (figure.state === WALK) {
-                figure.walkStep = (figure.walkStep + 1) % 5;
+                figure.walkStep = (figure.walkStep + 1) % 8;
             }
             if (figure.y < 500 && figure.dy > 0 && figure.state !== POWER_STOMP) {
                 figure.state = STAND;
@@ -146,9 +201,9 @@ var figure = function () {
 
         walkCycle: function () {
             if (figure.oriented === RIGHT) {
-                canvas.drawImage(walkCyclesRight[figure.walkStep], figure.x, figure.y, 25, 60);
+                walkCyclesRight[figure.walkStep]();
             } else if (figure.oriented === LEFT) {
-                canvas.drawImage(walkCyclesLeft[figure.walkStep], figure.x, figure.y, 25, 60);
+                walkCyclesLeft[figure.walkStep]();
             }
         },
 
@@ -156,8 +211,8 @@ var figure = function () {
             switch (figure.state) {
                 case STAND:
                     figure.oriented === RIGHT
-                        ? canvas.drawImage(stickWalkingRight0, figure.x, figure.y, 25, 60)
-                        : canvas.drawImage(stickWalkingLeft0, figure.x, figure.y, 25, 60);
+                        ? canvas.drawImage(stickStandRight, figure.x, figure.y, 16, 60)
+                        : canvas.drawImage(stickStandLeft, figure.x, figure.y, 16, 60);
                     break;
                 case WALK:
                     figure.walkCycle();
@@ -178,8 +233,8 @@ var figure = function () {
                         : canvas.drawImage(stickCrouchLeft, figure.x - 20, figure.y + 28, 43, 30);
                     break;
                 case QUEUE_JUMP:
-                    figure.jumpStrength === 0 ? figure.jumpStrength = -15 : null;
-                    figure.jumpStrength > -35 ? figure.jumpStrength -= 1 : null;
+                    figure.jumpStrength === 0 ? figure.jumpStrength = -10 : null;
+                    figure.jumpStrength > -35 ? figure.jumpStrength -= 0.9 : null;
                     figure.oriented === RIGHT
                         ? canvas.drawImage(stickCrouchRight, figure.x, figure.y + 28, 43, 30)
                         : canvas.drawImage(stickCrouchLeft, figure.x - 20, figure.y + 28, 43, 30);
@@ -203,3 +258,4 @@ K_LEFT = 37;
 K_RIGHT = 39;
 K_SPACE = 32;
 K_DOWN = 40;
+K_UP = 38;
