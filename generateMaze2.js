@@ -30,6 +30,10 @@ let Directions = [
 function Node() {
   this.directions = []
   this.isBuilding = true
+  this.northBId;
+  this.southBId;
+  this.eastBId;
+  this.westBId;
 }
 
 WIDTH = 21; HEIGHT = 21;
@@ -53,7 +57,6 @@ function carvePath(curX, curY) {
   let directions = _.shuffle(Directions);
 
   directions.forEach(direction => {
-
     let newX = curX + direction.DX*2;
     let newY = curY + direction.DY*2;
 
@@ -64,16 +67,16 @@ function carvePath(curX, curY) {
       map[curX+direction.DX][curY+direction.DY].directions.push(direction.opposite);
       map[newX][newY].directions.push(direction.opposite);
       map[newX][newY].isBuilding = false;
+      map[curX][curY].northBId = Math.round(Math.random()*3);
+      map[curX][curY].southBId = Math.round(Math.random()*3);
+      map[curX][curY].eastBId = Math.round(Math.random()*3);
+      map[curX][curY].westBId = Math.round(Math.random()*3);
       carvePath(newX, newY);
     }
   })
 }
 map[1][1].isBuilding = false;
 carvePath(1,1)
-
-map.forEach(row => {
-  console.log(row.map(o => o.isBuilding ? "x" : "0").toString())
-})
 
 // let blah = _.shuffle(Directions)
 // console.log(blah)
