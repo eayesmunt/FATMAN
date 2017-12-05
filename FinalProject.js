@@ -9,10 +9,18 @@ var GameOver = false;
 var Time = new Date();
 var DIRECTION_ENUM = ['N', 'E', 'S', 'W'];
 
-// dummy map
-var map = {
-    startBlock: null
-};
+var b0 = new Image();
+b0.src = './buildings/b0.png';
+var b1 = new Image();
+b1.src = './buildings/b1.png';
+var b2 = new Image();
+b2.src = './buildings/b2.png';
+var b3 = new Image();
+b3.src = './buildings/b3.png';
+var b4 = new Image();
+b4.src = './buildings/sky.jpg';
+
+var buildingPics = [b0, b1, b2, b3, b4];
 
 // motion of objects around character
 var ddx = 0;
@@ -22,12 +30,27 @@ var theCanvas;
 var canvas;
 
 // The figure's position in map. Needs an x y pair.
-var figureBlock = {};
-// The figure's position on block. 0 < x < 750
+figureBlock = {
+  x: 1,
+  y: 1
+};
+
+// The figure's position on block. 0 <= x < 750
 var figurePosition;
 
 // View point of user/player
 var viewDirection;
+var figureDirection;
+
+function setDirections () {
+  if (map[1][1].directions.some(dir => dir === 'E')) {
+    viewDirection = 'N';
+    figureDirection = 'E';
+  } else {
+    viewDirection = 'E';
+    figureDirection = 'S';
+  }
+}
 
 var figure = new figure();
 var floor = {
@@ -40,34 +63,64 @@ var floor = {
 var shelves = [new createShelf(), new createShelf(), new createShelf(), new createShelf(), new createShelf(), new createShelf()];
 
 
-var drawBackGround = function () {
+function drawBackGround() {
+    console.log(viewDirection)
     if (figureDirection === 'E' || figureDirection === 'W') {
         if (viewDirection === "N") {
-            drawBuilding(map[figureBlock.x - 1].northBId, figurePosition - BLOCK_WIDTH);
-            drawBuilding(map[figureBlock.x].northBId, figurePosition);
-            drawBuilding(map[figureBlock.x + 1].northBId, figurePosition + BLOCK_WIDTH);
+            if(map[figureBlock.x - 1][figureBlock.y].northBId) {
+              drawBuilding(map[figureBlock.x - 1][figureBlock.y].northBId, figurePosition - BLOCK_WIDTH);
+            }
+            drawBuilding(map[figureBlock.x][figureBlock.y].northBId, figurePosition);
+            if (map[figureBlock.x + 1][figureBlock.y].northBId) {
+              drawBuilding(map[figureBlock.x + 1][figureBlock.y].northBId, figurePosition + BLOCK_WIDTH);
+            }
+            if (map[figureBlock.x + 2][figureBlock.y].northBId) {
+              drawBuilding(map[figureBlock.x + 2][figureBlock.y].northBId, figurePosition + BLOCK_WIDTH * 2);
+            }
         }
         else {
-            drawBuilding(map[figureBlock.x + 1].southBId, figurePosition - BLOCK_WIDTH);
-            drawBuilding(map[figureBlock.x].southBId, figurePosition);
-            drawBuilding(map[figureBlock.x - 1].southBId, figurePosition + BLOCK_WIDTH);
+            if(map[figureBlock.x + 1][figureBlock.y].southBId){
+              drawBuilding(map[figureBlock.x + 1][figureBlock.y].southBId, figurePosition - BLOCK_WIDTH);
+            }
+            drawBuilding(map[figureBlock.x][figureBlock.y].southBId, figurePosition);
+            if (map[figureBlock.x - 1][figureBlock.y].southBId)
+            {
+              drawBuilding(map[figureBlock.x - 1][figureBlock.y].southBId, figurePosition + BLOCK_WIDTH);
+            }
+            if (map[figureBlock.x - 2][figureBlock.y].southBId) {
+              drawBuilding(map[figureBlock.x - 2][figureBlock.y].southBId, figurePosition + BLOCK_WIDTH * 2);
+            }
         }
     } else {
         if (viewDirection === "E") {
-            drawBuilding(map[figureBlock.y - 1].eastBId, figurePosition - BLOCK_WIDTH);
-            drawBuilding(map[figureBlock.y].eastBId, figurePosition);
-            drawBuilding(map[figureBlock.y + 1].eastBId, figurePosition + BLOCK_WIDTH);
+            if(map[figureBlock.x][figureBlock.y - 1].eastBId){
+              drawBuilding(map[figureBlock.x][figureBlock.y - 1].eastBId, figurePosition - BLOCK_WIDTH);
+            }
+            drawBuilding(map[figureBlock.x][figureBlock.y].eastBId, figurePosition);
+            if (map[figureBlock.x][figureBlock.y + 1].eastBId) {
+              drawBuilding(map[figureBlock.x][figureBlock.y + 1].eastBId, figurePosition + BLOCK_WIDTH);
+            }
+            if (map[figureBlock.x][figureBlock.y + 2].eastBId) {
+              drawBuilding(map[figureBlock.x][figureBlock.y + 2].eastBId, figurePosition + BLOCK_WIDTH * 2);
+            }
         }
         else {
-            drawBuilding(map[figureBlock.y + 1].westBId, figurePosition - BLOCK_WIDTH);
-            drawBuilding(map[figureBlock.y].westBId, figurePosition);
-            drawBuilding(map[figureBlock.y - 1].westBId, figurePosition + BLOCK_WIDTH);
+            if (map[figureBlock.x][figureBlock.y + 1].westBId) {
+              drawBuilding(map[figureBlock.x][figureBlock.y + 1].westBId, figurePosition - BLOCK_WIDTH);
+            }
+            drawBuilding(map[figureBlock.x][figureBlock.y].westBId, figurePosition);
+            if (map[figureBlock.x][figureBlock.y - 1].westBId) {
+              drawBuilding(map[figureBlock.x][figureBlock.y - 1].westBId, figurePosition + BLOCK_WIDTH);
+            }
+            if (map[figureBlock.x][figureBlock.y - 2].westBId) {
+              drawBuilding(map[figureBlock.x][figureBlock.y - 2].westBId, figurePosition + BLOCK_WIDTH * 2);
+            }
         }
     }
 };
 
 var drawBuilding = function (bId, x) {
-    canvas.drawImg(bId, x, 200, 600, 800);
+    canvas.drawImage(buildingPics[bId], x, 0, BLOCK_WIDTH, 900);
 };
 
 var updateAndDrawShelves = function () {
@@ -95,8 +148,9 @@ var initializeKeys = function () {
 
 // FIGURE IS MOVING RIGHT -- FUNCTION USED TO GIVE BACKGROUND APPROPRIATE REFERENCE
 var adjustFigurePositionLeft = function () {
-    if (figurePosition += -7 < 0) {
-        figurePosition = 750;
+    figurePosition += 7
+    if (figurePosition > 750) {
+        figurePosition = 0;
         if (viewDirection === 'N') {
             figureBlock.x--;
         }
@@ -114,8 +168,9 @@ var adjustFigurePositionLeft = function () {
 
 // FIGURE IS MOVING LEFT -- FUNCTION USED TO GIVE BACKGROUND APPROPRIATE REFERENCE
 var adjustFigurePositionRight = function () {
-    if (figurePosition += 7 > 750) {
-        figurePosition = 0;
+    figurePosition -= 7;
+    if (figurePosition < 0) {
+        figurePosition = 750;
         if (viewDirection === 'N') {
             figureBlock.x++;
         }
@@ -151,20 +206,20 @@ var checkKeys = function () {
         ddx = 0;
     }
     if (keysDown[K_UP]) {
-        var checkMovePos;
-        for (var i = 0; i < 4; i++) {
-            if (viewDirection) {
-
-            }
-        }
-        viewDirection === 'N' ? checkMovePos = 0 : null;
-        viewDirection === 'E' ? checkMovePos = 1 : null;
-        viewDirection === 'S' ? checkMovePos = 2 : null;
-        viewDirection === 'W' ? checkMovePos = 3 : null;
-
-        if (map[figureBlock.x][figureBlock.y].possibleMoves[checkMovePos]) {
-            viewDirection = 
-        }
+        // var checkMovePos;
+        // for (var i = 0; i < 4; i++) {
+        //     if (viewDirection) {
+        //
+        //     }
+        // }
+        // viewDirection === 'N' ? checkMovePos = 0 : null;
+        // viewDirection === 'E' ? checkMovePos = 1 : null;
+        // viewDirection === 'S' ? checkMovePos = 2 : null;
+        // viewDirection === 'W' ? checkMovePos = 3 : null;
+        //
+        // if (map[figureBlock.x][figureBlock.y].possibleMoves[checkMovePos]) {
+        //     viewDirection =
+        // }
     }
 };
 
@@ -185,6 +240,9 @@ var updateKeysUp = function (e) {
 };
 
 var init = function () {
+    _.zip.apply(_, map).forEach(row => {
+      console.log(row.map(o => o.isBuilding ? "x" : "0").toString())
+    })
     // Setup key listeners
     document.onkeydown = updateKeysDown;
     document.onkeyup = updateKeysUp;
@@ -194,6 +252,9 @@ var init = function () {
     theCanvas.width = SCREEN_WIDTH;
     theCanvas.height = SCREEN_HEIGHT;
 
+    // Set directions
+    setDirections();
+
     // Draw Figure
     canvas = theCanvas.getContext('2d');
     canvas = figure.drawFigure(canvas);
@@ -202,12 +263,14 @@ var init = function () {
     canvas.fillStyle = '#020233';
     canvas.fillRect(floor.x, floor.y, floor.width, floor.height);
 
-    // Set Figure Position
-    figureBlock = map.startBlock;
-    figurePosition = 500;
+    figurePosition = 0;
+
+    console.log(figureBlock)
+    drawBackGround();
 
     figure.start();
     startGame();
+
 };
 
 var update = function () {
@@ -218,6 +281,7 @@ var update = function () {
     canvas.clearRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
     canvas.fillStyle = '#020233';
     canvas.fillRect(floor.x, floor.y, floor.width, floor.height);
+    drawBackGround();
     updateAndDrawShelves();
     canvas = figure.drawFigure(canvas);
 };
