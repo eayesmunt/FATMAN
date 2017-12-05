@@ -73,10 +73,10 @@ function carvePath(curX, curY) {
       map[curX+direction.DX][curY+direction.DY].eastBId = Math.round(Math.random()*3);
       map[curX+direction.DX][curY+direction.DY].westBId = Math.round(Math.random()*3);
 
-      map[curX][curY].northBId = direction.direction == "N" ? 4 : Math.round(Math.random()*3);
-      map[curX][curY].southBId = direction.direction == "S" ? 4 : Math.round(Math.random()*3);
-      map[curX][curY].eastBId = direction.direction == "E" ? 4 : Math.round(Math.random()*3);
-      map[curX][curY].westBId = direction.direction == "W" ? 4 : Math.round(Math.random()*3);
+      map[curX][curY].northBId = map[curX][curY].directions.some(dir => dir === "N") ? 6 : Math.round(Math.random()*5);
+      map[curX][curY].southBId = map[curX][curY].directions.some(dir => dir === "S") ? 6 : Math.round(Math.random()*5);
+      map[curX][curY].eastBId = map[curX][curY].directions.some(dir => dir === "E") ? 6 : Math.round(Math.random()*5);
+      map[curX][curY].westBId = map[curX][curY].directions.some(dir => dir === "W") ? 6 : Math.round(Math.random()*5);
       carvePath(newX, newY);
     }
   })

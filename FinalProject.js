@@ -9,7 +9,7 @@ var startGame = function () {
 
 var init = function () {
     _.zip.apply(_, map).forEach(row => {
-      console.log(row.map(o => o.isBuilding ? "x" : "0").toString())
+      console.log(row.map(o => o.isBuilding ? "X" : "0").toString())
     })
     // Setup key listeners
     document.onkeydown = updateKeysDown;
@@ -31,7 +31,7 @@ var init = function () {
     canvas.fillStyle = '#020233';
     canvas.fillRect(floor.x, floor.y, floor.width, floor.height);
 
-    figurePosition = 0;
+    figurePosition = 500;
 
     console.log(figureBlock)
     drawBackGround();

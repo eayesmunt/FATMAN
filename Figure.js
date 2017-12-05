@@ -138,6 +138,8 @@ var figure = function () {
         oriented: RIGHT,
         walkStep: 0,
         jumpStrength: 0,
+        turningLeft: false,
+        turningRight: false,
         // figureLoop: null,
 
         // CHECK KEYS

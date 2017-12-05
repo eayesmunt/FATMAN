@@ -4,6 +4,7 @@
 var SCREEN_WIDTH = window.innerWidth - 1;
 var SCREEN_HEIGHT = window.innerHeight - 1;
 var BLOCK_WIDTH = 750;
+var BUILDING_OFFSET = 500;
 var GRAVITY = 1.5;
 var GameOver = false;
 var Time = new Date();
@@ -18,9 +19,12 @@ b2.src = './buildings/b2.png';
 var b3 = new Image();
 b3.src = './buildings/b3.png';
 var b4 = new Image();
-b4.src = './buildings/sky.jpg';
-
-var buildingPics = [b0, b1, b2, b3, b4];
+b4.src = './buildings/b4.png';
+var b5 = new Image();
+b4.src = './buildings/b5.png';
+var alley = new Image();
+alley.src = './buildings/alley.png';
+var buildingPics = [b0, b1, b2, b3, b4, b5, alley];
 
 // motion of objects around character
 var ddx = 0;
