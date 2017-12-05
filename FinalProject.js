@@ -8,9 +8,10 @@ var startGame = function () {
 };
 
 var init = function () {
-    _.zip.apply(_, map).forEach(row => {
+    orientedMap.forEach(row => {
       console.log(row.map(o => o.isBuilding ? "X" : "0").toString())
-    })
+    });
+
     // Setup key listeners
     document.onkeydown = updateKeysDown;
     document.onkeyup = updateKeysUp;
@@ -19,6 +20,13 @@ var init = function () {
     theCanvas = document.getElementById('background');
     theCanvas.width = SCREEN_WIDTH;
     theCanvas.height = SCREEN_HEIGHT;
+
+    viewPortCanvas = document.getElementById('view-port');
+    viewPortCanvas.width = 200;
+    viewPortCanvas.height = 200;
+    vpcontext = viewPortCanvas.getContext('2d')
+    vpcontext.fillStyle = 'red';
+    vpcontext.fillRect(0, 0, 200, 200);
 
     // Set directions
     setDirections();
@@ -32,8 +40,6 @@ var init = function () {
     canvas.fillRect(floor.x, floor.y, floor.width, floor.height);
 
     figurePosition = 500;
-
-    console.log(figureBlock)
     drawBackGround();
 
     figure.start();
@@ -52,6 +58,8 @@ var update = function () {
     drawBackGround();
     updateAndDrawShelves();
     canvas = figure.drawFigure(canvas);
+    vpcontext.clearRect(0, 0, 200, 200);
+    viewPort.draw(vpcontext, map, figureBlock, figureDirection, figurePosition);
 };
 
 var end = function () {

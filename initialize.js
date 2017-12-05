@@ -7,8 +7,11 @@ var BLOCK_WIDTH = 750;
 var BUILDING_OFFSET = 500;
 var GRAVITY = 1.5;
 var GameOver = false;
+var viewPort = new Viewport();
+var orientedMap =_.zip.apply(_, map)
 var Time = new Date();
 var DIRECTION_ENUM = ['N', 'E', 'S', 'W'];
+var vpcontext;
 
 var b0 = new Image();
 b0.src = './buildings/b0.png';
