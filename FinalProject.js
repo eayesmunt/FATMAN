@@ -74,6 +74,9 @@ function drawBackGround() {
             if (map[figureBlock.x + 1][figureBlock.y].northBId) {
               drawBuilding(map[figureBlock.x + 1][figureBlock.y].northBId, figurePosition + BLOCK_WIDTH);
             }
+            if (map[figureBlock.x + 2][figureBlock.y].northBId) {
+              drawBuilding(map[figureBlock.x + 2][figureBlock.y].northBId, figurePosition + BLOCK_WIDTH * 2);
+            }
         }
         else {
             if(map[figureBlock.x + 1][figureBlock.y].southBId){
@@ -83,6 +86,9 @@ function drawBackGround() {
             if (map[figureBlock.x - 1][figureBlock.y].southBId)
             {
               drawBuilding(map[figureBlock.x - 1][figureBlock.y].southBId, figurePosition + BLOCK_WIDTH);
+            }
+            if (map[figureBlock.x - 2][figureBlock.y].southBId) {
+              drawBuilding(map[figureBlock.x - 2][figureBlock.y].southBId, figurePosition + BLOCK_WIDTH * 2);
             }
         }
     } else {
@@ -94,6 +100,9 @@ function drawBackGround() {
             if (map[figureBlock.x][figureBlock.y + 1].eastBId) {
               drawBuilding(map[figureBlock.x][figureBlock.y + 1].eastBId, figurePosition + BLOCK_WIDTH);
             }
+            if (map[figureBlock.x][figureBlock.y + 2].eastBId) {
+              drawBuilding(map[figureBlock.x][figureBlock.y + 2].eastBId, figurePosition + BLOCK_WIDTH * 2);
+            }
         }
         else {
             if (map[figureBlock.x][figureBlock.y + 1].westBId) {
@@ -102,6 +111,9 @@ function drawBackGround() {
             drawBuilding(map[figureBlock.x][figureBlock.y].westBId, figurePosition);
             if (map[figureBlock.x][figureBlock.y - 1].westBId) {
               drawBuilding(map[figureBlock.x][figureBlock.y - 1].westBId, figurePosition + BLOCK_WIDTH);
+            }
+            if (map[figureBlock.x][figureBlock.y - 2].westBId) {
+              drawBuilding(map[figureBlock.x][figureBlock.y - 2].westBId, figurePosition + BLOCK_WIDTH * 2);
             }
         }
     }
@@ -270,7 +282,7 @@ var update = function () {
     canvas.fillStyle = '#020233';
     canvas.fillRect(floor.x, floor.y, floor.width, floor.height);
     drawBackGround();
-    //updateAndDrawShelves();
+    updateAndDrawShelves();
     canvas = figure.drawFigure(canvas);
 };
 
