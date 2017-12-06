@@ -15,81 +15,123 @@ var checkShelves = function () {
 };
 
 var drawBuilding = function (bId, x) {
-    canvas.drawImage(buildingPics[bId], x - BUILDING_OFFSET, 0, BLOCK_WIDTH, 900);
+    canvas.drawImage(buildingPics[bId], x - BUILDING_OFFSET, 200, BLOCK_WIDTH, 600);
+};
+
+var drawRightEnd = function (x) {
+    canvas.drawImage(rightEndBuilding, x - BUILDING_OFFSET, 0, BLOCK_WIDTH, 1345);
+};
+
+var drawLeftEnd = function (x) {
+    canvas.drawImage(leftEndBuilding, x - BUILDING_OFFSET, 0, BLOCK_WIDTH, 1345);
 };
 
 function drawBackGround() {
     let figureOffset = -figurePosition + 1000;
     if (figureDirection === 'E' || figureDirection === 'W') {
         if (viewDirection === "N") {
-            if(map[figureBlock.x - 1][figureBlock.y].northBId !== undefined) {
-              drawBuilding(map[figureBlock.x - 1][figureBlock.y].northBId, figureOffset - BLOCK_WIDTH);
+            if (map[figureBlock.x - 1][figureBlock.y].northBId !== undefined) {
+                drawBuilding(map[figureBlock.x - 1][figureBlock.y].northBId, figureOffset - BLOCK_WIDTH);
+            } else {
+                drawLeftEnd(figureOffset - BLOCK_WIDTH);
             }
             drawBuilding(map[figureBlock.x][figureBlock.y].northBId, figureOffset);
-            if (map[figureBlock.x + 1][figureBlock.y].northBId  !== undefined) {
-              drawBuilding(map[figureBlock.x + 1][figureBlock.y].northBId, figureOffset + BLOCK_WIDTH);
+            if (map[figureBlock.x + 1][figureBlock.y].northBId !== undefined) {
+                drawBuilding(map[figureBlock.x + 1][figureBlock.y].northBId, figureOffset + BLOCK_WIDTH);
             } else {
-              console.log(map[figureBlock.x + 1][figureBlock.y].northBId);
+                drawRightEnd(figureOffset + BLOCK_WIDTH);
             }
-            if (map[figureBlock.x + 2][figureBlock.y].northBId  !== undefined) {
-              drawBuilding(map[figureBlock.x + 2][figureBlock.y].northBId, figureOffset + BLOCK_WIDTH * 2);
+            if (map[figureBlock.x + 2][figureBlock.y].northBId !== undefined) {
+                drawBuilding(map[figureBlock.x + 2][figureBlock.y].northBId, figureOffset + BLOCK_WIDTH * 2);
+            } else {
+                drawRightEnd(figureOffset + BLOCK_WIDTH * 2);
             }
         }
         else {
-            if(map[figureBlock.x + 1][figureBlock.y].southBId !== undefined){
-              drawBuilding(map[figureBlock.x + 1][figureBlock.y].southBId, figureOffset - BLOCK_WIDTH);
+            if (map[figureBlock.x + 1][figureBlock.y].southBId !== undefined) {
+                drawBuilding(map[figureBlock.x + 1][figureBlock.y].southBId, figureOffset - BLOCK_WIDTH);
+            } else {
+                drawLeftEnd(figureOffset - BLOCK_WIDTH);
             }
             drawBuilding(map[figureBlock.x][figureBlock.y].southBId, figureOffset);
-            if (map[figureBlock.x - 1] && map[figureBlock.x - 1][figureBlock.y].southBId  !== undefined)
-            {
-              drawBuilding(map[figureBlock.x - 1][figureBlock.y].southBId, figureOffset + BLOCK_WIDTH);
+            if (map[figureBlock.x - 1] && map[figureBlock.x - 1][figureBlock.y].southBId !== undefined) {
+                drawBuilding(map[figureBlock.x - 1][figureBlock.y].southBId, figureOffset + BLOCK_WIDTH);
+            } else {
+                drawRightEnd(figureOffset + BLOCK_WIDTH);
             }
-            if (map[figureBlock.x - 2] && map[figureBlock.x - 2][figureBlock.y].southBId  !== undefined) {
-              drawBuilding(map[figureBlock.x - 2][figureBlock.y].southBId, figureOffset + BLOCK_WIDTH * 2);
+            if (map[figureBlock.x - 2] && map[figureBlock.x - 2][figureBlock.y].southBId !== undefined) {
+                drawBuilding(map[figureBlock.x - 2][figureBlock.y].southBId, figureOffset + BLOCK_WIDTH * 2);
+            } else {
+                drawRightEnd(figureOffset + BLOCK_WIDTH * 2);
             }
         }
     } else {
         if (viewDirection === "E") {
-            if(map[figureBlock.x][figureBlock.y - 1] && map[figureBlock.x][figureBlock.y - 1].eastBId !== undefined){
-              drawBuilding(map[figureBlock.x][figureBlock.y - 1].eastBId, figureOffset - BLOCK_WIDTH);
+            if (map[figureBlock.x][figureBlock.y - 1] && map[figureBlock.x][figureBlock.y - 1].eastBId !== undefined) {
+                drawBuilding(map[figureBlock.x][figureBlock.y - 1].eastBId, figureOffset - BLOCK_WIDTH);
+            } else {
+                drawLeftEnd(figureOffset - BLOCK_WIDTH);
             }
             drawBuilding(map[figureBlock.x][figureBlock.y].eastBId, figureOffset);
             if (map[figureBlock.x][figureBlock.y + 1] && map[figureBlock.x][figureBlock.y + 1].eastBId !== undefined) {
-              drawBuilding(map[figureBlock.x][figureBlock.y + 1].eastBId, figureOffset + BLOCK_WIDTH);
+                drawBuilding(map[figureBlock.x][figureBlock.y + 1].eastBId, figureOffset + BLOCK_WIDTH);
+            } else {
+                drawRightEnd(figureOffset + BLOCK_WIDTH);
             }
             if (map[figureBlock.x][figureBlock.y + 2] && map[figureBlock.x][figureBlock.y + 2].eastBId !== undefined) {
-              drawBuilding(map[figureBlock.x][figureBlock.y + 2].eastBId, figureOffset + BLOCK_WIDTH * 2);
+                drawBuilding(map[figureBlock.x][figureBlock.y + 2].eastBId, figureOffset + BLOCK_WIDTH * 2);
+            }
+            else {
+                drawRightEnd(figureOffset + BLOCK_WIDTH * 2);
             }
         }
         else {
             if (map[figureBlock.x][figureBlock.y + 1] && map[figureBlock.x][figureBlock.y + 1].westBId !== undefined) {
-              drawBuilding(map[figureBlock.x][figureBlock.y + 1].westBId, figureOffset - BLOCK_WIDTH);
+                drawBuilding(map[figureBlock.x][figureBlock.y + 1].westBId, figureOffset - BLOCK_WIDTH);
             }
             drawBuilding(map[figureBlock.x][figureBlock.y].westBId, figureOffset);
             if (map[figureBlock.x][figureBlock.y - 1] && map[figureBlock.x][figureBlock.y - 1].westBId !== undefined) {
-              drawBuilding(map[figureBlock.x][figureBlock.y - 1].westBId, figureOffset + BLOCK_WIDTH);
+                drawBuilding(map[figureBlock.x][figureBlock.y - 1].westBId, figureOffset + BLOCK_WIDTH);
+            } else {
+                drawRightEnd(figureOffset + BLOCK_WIDTH);
             }
             if (map[figureBlock.x][figureBlock.y - 2] && map[figureBlock.x][figureBlock.y - 2].westBId !== undefined) {
-              drawBuilding(map[figureBlock.x][figureBlock.y - 2].westBId, figureOffset + BLOCK_WIDTH * 2);
+                drawBuilding(map[figureBlock.x][figureBlock.y - 2].westBId, figureOffset + BLOCK_WIDTH * 2);
+            }
+            else {
+                drawRightEnd(figureOffset + BLOCK_WIDTH * 2);
             }
         }
     }
 };
 
+
+var adjustdxddxLeft = function () {
+    if (figure.state === JUMP) {
+        dx = 12;
+    } else {
+        dx = 7;
+    }
+}
+
+var adjustdxddxRight = function () {
+    if (figure.state === JUMP) {
+        dx = -12;
+    } else {
+        dx = -7;
+    }
+}
+
 var checkKeys = function () {
-    if (keysDown[K_LEFT]) {
-        if (figure.state === JUMP) {
-            dx = 12;
-        } else {
-            dx = 7;
-        }
+    let canGoRight = map[figureBlock.x][figureBlock.y].directions.some(dir => dir === figureDirection);
+    let leftDir = Directions.find(object => object.direction === figureDirection).opposite;
+    let canGoLeft = map[figureBlock.x][figureBlock.y].directions.some(dir => dir === leftDir);
+
+    if (keysDown[K_LEFT] && canGoLeft) {
+        adjustdxddxLeft();
         adjustFigurePositionLeft();
-    } else if (keysDown[K_RIGHT]) {
-        if (figure.state === JUMP) {
-            dx = -12;
-        } else {
-            dx = -7;
-        }
+    } else if (keysDown[K_RIGHT] && canGoRight) {
+        adjustdxddxRight();
         adjustFigurePositionRight();
     } else {
         dx = 0;
@@ -98,27 +140,27 @@ var checkKeys = function () {
     if (keysDown[K_UP]) {
         figure.turningLeft = true;
     } else if (figure.turningLeft) {
-      if (map[figureBlock.x][figureBlock.y].directions.some(dir => dir === viewDirection)) {
-        let oldViewDirection = viewDirection;
-        viewDirection = Directions.find(object => object.direction === figureDirection).opposite;
-        figureDirection = oldViewDirection;
-      }
-      figure.turningLeft = false;
+        if (map[figureBlock.x][figureBlock.y].directions.some(dir => dir === viewDirection)) {
+            let oldViewDirection = viewDirection;
+            viewDirection = Directions.find(object => object.direction === figureDirection).opposite;
+            figureDirection = oldViewDirection;
+        }
+        figure.turningLeft = false;
     }
     if (keysDown[K_DOWN]) {
-      figure.turningRight = true;
+        figure.turningRight = true;
     } else if (figure.turningRight) {
-      let oppositeViewDirection = Directions.find(object => object.direction === viewDirection).opposite;
+        let oppositeViewDirection = Directions.find(object => object.direction === viewDirection).opposite;
 
-      if (map[figureBlock.x][figureBlock.y].directions.some(dir => dir === oppositeViewDirection)) {
-        let oldFigureDirection = figureDirection;
-        figureDirection = oppositeViewDirection;
-        viewDirection = oldFigureDirection;
-        console.log("X: " + figureBlock.x,
-                    "Y: " + figureBlock.y,
-                    "Fig Direction: " + figureDirection);
-      }
-      figure.turningRight = false;
+        if (map[figureBlock.x][figureBlock.y].directions.some(dir => dir === oppositeViewDirection)) {
+            let oldFigureDirection = figureDirection;
+            figureDirection = oppositeViewDirection;
+            viewDirection = oldFigureDirection;
+            console.log("X: " + figureBlock.x,
+                "Y: " + figureBlock.y,
+                "Fig Direction: " + figureDirection);
+        }
+        figure.turningRight = false;
     }
 };
 
@@ -140,8 +182,8 @@ var adjustFigurePositionLeft = function () {
             figureBlock.y++;
         }
         console.log("X: " + figureBlock.x,
-                    "Y: " + figureBlock.y,
-                    "Fig Direction: " + figureDirection);
+            "Y: " + figureBlock.y,
+            "Fig Direction: " + figureDirection);
     }
 };
 
@@ -163,8 +205,8 @@ var adjustFigurePositionRight = function () {
             figureBlock.y--;
         }
         console.log("X: " + figureBlock.x,
-                    "Y: " + figureBlock.y,
-                    "Fig Direction: " + figureDirection);
+            "Y: " + figureBlock.y,
+            "Fig Direction: " + figureDirection);
     }
 };
 

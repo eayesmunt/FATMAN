@@ -9,7 +9,7 @@ var startGame = function () {
 
 var init = function () {
     orientedMap.forEach(row => {
-      console.log(row.map(o => o.isBuilding ? "X" : "0").toString())
+        console.log(row.map(o => o.isBuilding ? "X" : "0").toString())
     });
 
     // Setup key listeners
@@ -53,10 +53,13 @@ var update = function () {
     checkPhysics();
     checkShelves();
     canvas.clearRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-    canvas.fillStyle = '#020233';
+    canvas.fillStyle = '#AAAAAA';
     canvas.fillRect(floor.x, floor.y, floor.width, floor.height);
+    canvas.fillStyle = '#3e3e3e';
+    canvas.fillRect(floor.x, floor.y + floor.height, floor.width, 200);
+
     drawBackGround();
-    updateAndDrawShelves();
+    // updateAndDrawShelves();
     canvas = figure.drawFigure(canvas);
     vpcontext.clearRect(0, 0, 200, 200);
     viewPort.draw(vpcontext, map, figureBlock, figureDirection, figurePosition);
